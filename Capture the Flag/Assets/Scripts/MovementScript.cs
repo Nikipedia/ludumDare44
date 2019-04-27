@@ -49,12 +49,17 @@ public class MovementScript : MonoBehaviour
     public bool doubleJump, dash;
     private bool hasDoubleJumped;
     private float dashTimer;
+    private int prevTime;
     public float dashCooldown;
     public float dashRange;
+    public UIScript ui;
     public GameObject dashArrow;
+    public AudioSource dashSound;
+    public AudioSource jumpSound;
     // Start is called before the first frame update
     void Start()
     {
+        prevTime = 0;
         rb = GetComponent<Rigidbody>();
         c = GetComponent<Collider>();
         hasDoubleJumped = false;
@@ -66,7 +71,19 @@ public class MovementScript : MonoBehaviour
         m_InterpolatingCameraState.SetFromTransform(cameraTrans);
     }
 
+    public void activateDash()
+    {
+        dashTimer = 1;
+        dash = true;
+        ui.ToggleDashing();
+    }
 
+    public void DeactivateDash()
+        {
+        dashTimer = 1;
+        dash = false;
+        ui.ToggleDashing();
+    }
 
     Vector3 GetInputTranslationDirection()
     {
@@ -109,17 +126,27 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dashTimer--;
+        dashTimer -= Time.deltaTime;
+        if(prevTime != Mathf.CeilToInt(dashTimer))
+        {
+            prevTime = Mathf.CeilToInt(dashTimer);
+            if (dashTimer > 0)
+                ui.UpdateDashCD(prevTime + "");
+            else
+                ui.UpdateDashCD("Ready!");
+        }
         if(Input.GetKeyDown(KeyCode.Space))
         {
             if (rb.velocity.y == 0)
             {
                 rb.velocity += Vector3.up * -Physics.gravity.y * jumpMultiplier;
+                jumpSound.Play();
             }
-            else if(!hasDoubleJumped)
+            else if(!hasDoubleJumped&&doubleJump)
             {
                 rb.velocity += Vector3.up * -Physics.gravity.y * jumpMultiplier;
                 hasDoubleJumped = true;
+                jumpSound.Play();
             }
         }
         /*if (Input.GetKey(KeyCode.Space)&&rb.velocity.y < 0)
@@ -140,15 +167,18 @@ public class MovementScript : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0) && dash && dashTimer <= 0)
         {
+            dashSound.Play();
             dashArrow.SetActive(false);
             dashTimer = dashCooldown;
             var translation = cameraTrans.forward * dashRange;
             translation.y = 0;
             var newPos = transform.position + translation;
             NavMeshHit myNavHit;
-            if(NavMesh.SamplePosition(newPos, out myNavHit, 100, -1))
+            if(NavMesh.SamplePosition(newPos, out myNavHit, 3, 5))
             {
-                transform.position = newPos;
+                Debug.Log(myNavHit.position);
+                Debug.Log(myNavHit.hit);
+                transform.position = new Vector3(myNavHit.position.x, myNavHit.position.y + 1, myNavHit.position.z);
             }
         }
         else

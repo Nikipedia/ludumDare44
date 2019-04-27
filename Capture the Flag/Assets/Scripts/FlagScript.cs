@@ -5,6 +5,8 @@ using UnityEngine;
 public class FlagScript : MonoBehaviour
 {
     public bool givesFlag;
+    public AudioSource getFlag;
+    public GameObject successParticles;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,16 +23,21 @@ public class FlagScript : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            
             if(givesFlag && !other.GetComponent<CaptureScript>().hasFlag)
             {
                 other.GetComponent<CaptureScript>().receiveFlag();
                 gameObject.SetActive(false);
                 GameScript.getGame().ReceivedFlag();
+                getFlag.Play();
+                successParticles.GetComponent<ParticleSystem>().Play();
             }
             else if(!givesFlag && other.GetComponent<CaptureScript>().hasFlag)
             {
                 other.GetComponent<CaptureScript>().removeFlag();
                 GameScript.getGame().IncreaseScore();
+                getFlag.Play();
+                successParticles.GetComponent<ParticleSystem>().Play();
             }
         }
     }
