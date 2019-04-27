@@ -7,9 +7,11 @@ public class EvilScript : MonoBehaviour
     public NavMeshAgent agent;
     public bool foundPlayer;
     private Transform player;
+    private Vector3 startPos;
     // Use this for initialization
     void Start()
     {
+        startPos = transform.position;
         StartCoroutine(moveRandom());
     }
 
@@ -18,8 +20,8 @@ public class EvilScript : MonoBehaviour
         while(!foundPlayer)
             {
             Vector3 aimLoc = Random.insideUnitCircle * 10;
-            aimLoc.x = aimLoc.x + transform.position.x;
-            aimLoc.z = aimLoc.y + transform.position.z;
+            aimLoc.x = aimLoc.x + startPos.x;
+            aimLoc.z = aimLoc.y + startPos.z;
             aimLoc.y = 0;
             agent.SetDestination(aimLoc);
             yield return new WaitForSeconds(5);
@@ -40,8 +42,8 @@ public class EvilScript : MonoBehaviour
         if(other.tag == "Player")
         {
             player = other.transform;
-            agent.SetDestination(player.position);
             foundPlayer = true;
+            StartCoroutine(movePlayer());
         }
     }
 

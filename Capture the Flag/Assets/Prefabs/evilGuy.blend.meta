@@ -1,40 +1,104 @@
 fileFormatVersion: 2
 guid: 9072ae482b331f5429210a49288b0769
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Cube
-    100002: Cube_001
-    100004: Cube_002
-    100006: Cube_003
-    100008: //RootNode
-    100010: Icosphere
-    400000: Cube
-    400002: Cube_001
-    400004: Cube_002
-    400006: Cube_003
-    400008: //RootNode
-    400010: Icosphere
-    2100000: Material_001
-    2100002: Material_002
-    2100004: unnamed
-    2300000: Cube
-    2300002: Cube_001
-    2300004: Cube_002
-    2300006: Cube_003
-    2300008: Icosphere
-    3300000: Cube
-    3300002: Cube_001
-    3300004: Cube_002
-    3300006: Cube_003
-    3300008: Icosphere
-    4300000: Icosphere
-    4300002: Cube
-    4300004: Cube_001
-    4300006: Cube_003
-    4300008: Cube_002
-    7400000: Default Take
-    9500000: //RootNode
+  serializedVersion: 25
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Cube
+  - first:
+      1: 100002
+    second: Cube_001
+  - first:
+      1: 100004
+    second: Cube_002
+  - first:
+      1: 100006
+    second: Cube_003
+  - first:
+      1: 100008
+    second: //RootNode
+  - first:
+      1: 100010
+    second: Icosphere
+  - first:
+      4: 400000
+    second: Cube
+  - first:
+      4: 400002
+    second: Cube_001
+  - first:
+      4: 400004
+    second: Cube_002
+  - first:
+      4: 400006
+    second: Cube_003
+  - first:
+      4: 400008
+    second: //RootNode
+  - first:
+      4: 400010
+    second: Icosphere
+  - first:
+      21: 2100000
+    second: Material_001
+  - first:
+      21: 2100002
+    second: Material_002
+  - first:
+      21: 2100004
+    second: unnamed
+  - first:
+      23: 2300000
+    second: Cube
+  - first:
+      23: 2300002
+    second: Cube_001
+  - first:
+      23: 2300004
+    second: Cube_002
+  - first:
+      23: 2300006
+    second: Cube_003
+  - first:
+      23: 2300008
+    second: Icosphere
+  - first:
+      33: 3300000
+    second: Cube
+  - first:
+      33: 3300002
+    second: Cube_001
+  - first:
+      33: 3300004
+    second: Cube_002
+  - first:
+      33: 3300006
+    second: Cube_003
+  - first:
+      33: 3300008
+    second: Icosphere
+  - first:
+      43: 4300000
+    second: Icosphere
+  - first:
+      43: 4300002
+    second: Cube
+  - first:
+      43: 4300004
+    second: Cube_001
+  - first:
+      43: 4300006
+    second: Cube_003
+  - first:
+      43: 4300008
+    second: Cube_002
+  - first:
+      74: 7400000
+    second: Default Take
+  - first:
+      95: 9500000
+    second: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -72,23 +136,24 @@ ModelImporter:
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -97,10 +162,11 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -110,6 +176,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

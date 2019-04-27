@@ -921,6 +921,7 @@ MonoBehaviour:
   cameraTrans: {fileID: 1687258585}
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  jumpMultiplier: 0.5
   doubleJump: 0
   dash: 0
   dashCooldown: 10
@@ -5817,7 +5818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1178078649
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8876,6 +8877,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 894b498e83cbaff4db62063b2e652523, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 449cc19f6423aad4fa8e7eb892673d24, type: 2}
+    - target: {fileID: 2300002, guid: 894b498e83cbaff4db62063b2e652523, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9fa0c8b3cdc33449b7019719a7452fc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 894b498e83cbaff4db62063b2e652523, type: 3}
 --- !u!1 &1846296192

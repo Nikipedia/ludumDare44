@@ -47,6 +47,7 @@ public class MovementScript : MonoBehaviour
     Rigidbody rb;
     Collider c;
     public bool doubleJump, dash;
+    private bool hasDoubleJumped;
     private float dashTimer;
     public float dashCooldown;
     public float dashRange;
@@ -56,7 +57,7 @@ public class MovementScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         c = GetComponent<Collider>();
-        
+        hasDoubleJumped = false;
     }
 
     void OnEnable()
@@ -97,13 +98,29 @@ public class MovementScript : MonoBehaviour
         return direction;
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.GetComponent<Terrain>()!=null)
+        {
+            hasDoubleJumped = false;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         dashTimer--;
-        if(Input.GetKey(KeyCode.Space) && rb.velocity.y == 0)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity += Vector3.up * -Physics.gravity.y * jumpMultiplier;
+            if (rb.velocity.y == 0)
+            {
+                rb.velocity += Vector3.up * -Physics.gravity.y * jumpMultiplier;
+            }
+            else if(!hasDoubleJumped)
+            {
+                rb.velocity += Vector3.up * -Physics.gravity.y * jumpMultiplier;
+                hasDoubleJumped = true;
+            }
         }
         /*if (Input.GetKey(KeyCode.Space)&&rb.velocity.y < 0)
         {
