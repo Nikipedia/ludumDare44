@@ -19,36 +19,37 @@ public class ShopCanvas : MonoBehaviour
 
     private void OnEnable()
     {
-        move.dash = false;
-        move.doubleJump = false;
+        move.DeactivateDash();
+        move.DeactivateDoubleJ();
         Cursor.lockState = CursorLockMode.None;
     }
 
     void Dash()
     {
-        move.dash = true;
-        player.lives -= 2;
+        move.activateDash();
+        player.loseLives(2);
         Exit();
     }
 
     void DoubleJ()
     {
-        move.doubleJump = true;
-        player.lives -= 1;
+        move.ActivateDoubleJ();
+        player.loseLives(1);
         Exit();
     }
 
     void ExtraT()
     {
         GameScript.getGame().remainingTime += 30;
-        player.lives -= 3;
+        move.ActivateDoubleJ();
+        player.loseLives(3);
         Exit();
     }
 
     private void Exit()
     {
         Time.timeScale = 1;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         gameObject.SetActive(false);
     }
 }

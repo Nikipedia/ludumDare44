@@ -17,11 +17,11 @@ public class GameScript : MonoBehaviour
     public CaptureScript player;
     public UIScript ui;
     public ShopCanvas shop;
+    public Camera main;
     private int prevTime;
     // Use this for initialization
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         remainingTime = maxTime;
         score = 0;
         if(game == null)
@@ -29,13 +29,21 @@ public class GameScript : MonoBehaviour
             game = this;
         }
         pointCounter = 0;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < PlayerPrefs.GetInt("monsters"); i++)
         {
             Instantiate(evilPrefab, instancePoints[pointCounter % instancePoints.Length], Quaternion.identity);
             pointCounter++;
         }
         Time.timeScale = 0;
         shop.gameObject.SetActive(true);
+        if(PlayerPrefs.GetInt("sky") == 0)
+        {
+            main.clearFlags = CameraClearFlags.Skybox;
+        }
+        else if(PlayerPrefs.GetInt("sky") == 1)
+        {
+            main.clearFlags = CameraClearFlags.SolidColor;
+        }
     }
 
     public static GameScript getGame()
@@ -70,7 +78,11 @@ public class GameScript : MonoBehaviour
             flag.Activate();
         }
         globalArrow.transform.Rotate(0, 0, 180);
-        if (player.lives > 1)
+        if(score == 3)
+        {
+            GameWon();
+        }
+        else if (player.lives > 1)
         {
             Time.timeScale = 0;
             shop.gameObject.SetActive(true);
@@ -85,12 +97,15 @@ public class GameScript : MonoBehaviour
 
     public void GameOver()
     {
-
+        Time.timeScale = 0;
+        ui.Lose();
     }
 
     public void GameWon()
     {
-
+        player.StopAllMusic();
+        Time.timeScale = 0;
+        ui.Win();
     }
 
     // Update is called once per frame

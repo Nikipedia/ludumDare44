@@ -8,6 +8,7 @@ public class EvilScript : MonoBehaviour
     public bool foundPlayer;
     private Transform player;
     private Vector3 startPos;
+    public AudioSource barking;
     // Use this for initialization
     void Start()
     {
@@ -44,6 +45,10 @@ public class EvilScript : MonoBehaviour
             player = other.transform;
             foundPlayer = true;
             StartCoroutine(movePlayer());
+            if(!barking.isPlaying)
+            {
+                barking.Play();
+            }
         }
     }
 
