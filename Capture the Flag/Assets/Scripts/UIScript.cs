@@ -11,6 +11,8 @@ public class UIScript : MonoBehaviour
     public Text score;
     public Text dashCD;
     public GameObject dashing;
+    public GameObject doubleJump;
+    public GameObject flagHint;
     public GameObject WinningScreen;
     public Button PlayAgain;
     public GameObject LosingScreen;
@@ -20,6 +22,16 @@ public class UIScript : MonoBehaviour
     {
         PlayAgain.onClick.AddListener(PlayOnceMore);
         loseAgain.onClick.AddListener(PlayOnceMore);
+    }
+
+    public void EnableFlagHint()
+    {
+        flagHint.SetActive(true);
+    }
+
+    public void DisableFlagHint()
+    {
+        flagHint.SetActive(false);
     }
 
     public void PlayOnceMore()
@@ -39,6 +51,16 @@ public class UIScript : MonoBehaviour
     {
         LosingScreen.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void EnableDoubleJump()
+    {
+        doubleJump.SetActive(true);
+    }
+
+    public void DisableDoubleJump()
+    {
+        doubleJump.SetActive(false);
     }
 
     public void EnableDashing()

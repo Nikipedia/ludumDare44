@@ -20,6 +20,7 @@ public class CaptureScript : MonoBehaviour
     public void receiveFlag()
     {
         hasFlag = true;
+        ui.EnableFlagHint();
         calm.Stop();
         aggressive.Play();
         
@@ -39,6 +40,7 @@ public class CaptureScript : MonoBehaviour
     public void removeFlag()
     {
         hasFlag = false;
+        ui.DisableFlagHint();
         aggressive.Stop();
         calm.Play();
     }
@@ -57,6 +59,7 @@ public class CaptureScript : MonoBehaviour
         if (hasFlag)
         {
             hasFlag = false;
+            ui.DisableFlagHint();
             GameScript.getGame().LostFlag();
             aggressive.Stop();
             calm.Play();

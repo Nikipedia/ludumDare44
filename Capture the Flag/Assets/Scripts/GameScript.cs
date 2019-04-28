@@ -87,7 +87,6 @@ public class GameScript : MonoBehaviour
             Time.timeScale = 0;
             shop.gameObject.SetActive(true);
         }
-        
     }
 
     public void SpawnNewEnemy()

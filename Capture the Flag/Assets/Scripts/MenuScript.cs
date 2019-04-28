@@ -14,6 +14,9 @@ public class MenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetFloat("musicVol", 0.5f);
+        PlayerPrefs.SetFloat("soundVol", 0.5f);
+        PlayerPrefs.SetFloat("mouseSens", 0.5f);
         toInstruc.onClick.AddListener(toInstructions);
         toScene.onClick.AddListener(toGame);
         PlayerPrefs.SetInt("monsters", 3);

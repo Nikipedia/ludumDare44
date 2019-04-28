@@ -34,6 +34,7 @@ public class MovementScript : MonoBehaviour
     [Header("Rotation Settings")]
     [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
     public AnimationCurve mouseSensitivityCurve = new AnimationCurve(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
+    public float SensitivityMult = 1f;
 
     [Tooltip("Time it takes to interpolate camera rotation 99% of the way to the target."), Range(0.001f, 1f)]
     public float rotationLerpTime = 0.01f;
@@ -53,6 +54,7 @@ public class MovementScript : MonoBehaviour
     public float dashCooldown;
     public float dashRange;
     public UIScript ui;
+    public GameObject controls;
     public GameObject dashArrow;
     public AudioSource dashSound;
     public AudioSource jumpSound;
@@ -63,12 +65,32 @@ public class MovementScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         c = GetComponent<Collider>();
         hasDoubleJumped = false;
+        controls.GetComponent<Controls>().MusicChanged(PlayerPrefs.GetFloat("musicVol"));
+        controls.GetComponent<Controls>().SoundChanged(PlayerPrefs.GetFloat("soundVol"));
+        SensitivityMult = PlayerPrefs.GetFloat("mouseSens");
+    }
+
+    public void ChangeMouseSensitivity(float newVal)
+    {
+        SensitivityMult = newVal;
     }
 
     void OnEnable()
     {
         m_TargetCameraState.SetFromTransform(cameraTrans);
         m_InterpolatingCameraState.SetFromTransform(cameraTrans);
+    }
+
+    public void ActivateDoubleJ()
+    {
+        doubleJump = true;
+        ui.EnableDoubleJump();
+    }
+
+    public void DeactivateDoubleJ()
+    {
+        doubleJump = false;
+        ui.DisableDoubleJump();
     }
 
     public void activateDash()
@@ -149,6 +171,12 @@ public class MovementScript : MonoBehaviour
                 jumpSound.Play();
             }
         }
+        if ((Input.GetKeyDown(KeyCode.LeftControl)||Input.GetKeyDown(KeyCode.RightControl)) && Cursor.lockState == CursorLockMode.Locked)
+        {
+            controls.SetActive(true);
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+        }
         /*if (Input.GetKey(KeyCode.Space)&&rb.velocity.y < 0)
         {
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -189,7 +217,7 @@ public class MovementScript : MonoBehaviour
         }
         var mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * (invertY ? 1 : -1));
 
-        var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
+        var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude) * SensitivityMult;
 
         m_TargetCameraState.yaw += mouseMovement.x * mouseSensitivityFactor;
         m_TargetCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
