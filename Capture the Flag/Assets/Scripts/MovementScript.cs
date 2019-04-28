@@ -75,14 +75,14 @@ public class MovementScript : MonoBehaviour
     {
         dashTimer = 1;
         dash = true;
-        ui.ToggleDashing();
+        ui.EnableDashing();
     }
 
     public void DeactivateDash()
         {
         dashTimer = 1;
         dash = false;
-        ui.ToggleDashing();
+        ui.DisableDashing();
     }
 
     Vector3 GetInputTranslationDirection()
@@ -163,9 +163,9 @@ public class MovementScript : MonoBehaviour
         }
         if (Input.GetMouseButton(0) && dashTimer <= 0 && dash)
         {
-            dashArrow.transform.eulerAngles = new Vector3(dashArrow.transform.eulerAngles.x, dashArrow.transform.eulerAngles.y, cameraTrans.rotation.y);
+            dashArrow.transform.forward = new Vector3(cameraTrans.forward.x, 0, cameraTrans.forward.z);
         }
-        if (Input.GetMouseButtonUp(0) && dash && dashTimer <= 0)
+        if (Input.GetMouseButtonUp(0) && dash && dashTimer <= 0 && Cursor.lockState == CursorLockMode.Locked)
         {
             dashSound.Play();
             dashArrow.SetActive(false);

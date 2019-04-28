@@ -41,6 +41,7 @@ public class ShopCanvas : MonoBehaviour
     void ExtraT()
     {
         GameScript.getGame().remainingTime += 30;
+        move.doubleJump = true;
         player.loseLives(3);
         Exit();
     }
