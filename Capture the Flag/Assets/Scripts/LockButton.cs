@@ -9,12 +9,7 @@ public class LockButton : Button
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
-        
-    }
-
-    public override void OnPointerClick(PointerEventData eventData)
-    {
-        base.OnPointerClick(eventData);
         Cursor.lockState = CursorLockMode.Locked;
+        base.OnPointerClick(eventData);
     }
 }
